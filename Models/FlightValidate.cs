@@ -1,7 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 
 namespace FlightPlannerAPI.Models
 {
@@ -24,6 +21,8 @@ namespace FlightPlannerAPI.Models
 
         public static bool AreFlightDuplicates(Flight flight1, Flight flight2)
         {
+            if (flight1 == null || flight2 == null)
+                return false;
             return flight1.DepartureTime == flight2.DepartureTime &&
                 flight1.ArrivalTime == flight2.ArrivalTime
                 && flight1.Carrier == flight2.Carrier
