@@ -7,10 +7,11 @@ namespace FlightPlannerAPI.Models
     public static class FlightStorage
     {
         private static List<Flight> _flights = new List<Flight> ();
-        
+        private static object myLock = new object();
+
         public static Flight GetFlightById(int id)
         {
-            lock (_flights)
+            lock (myLock)
             {
                 return _flights.SingleOrDefault(flight => flight.Id == id);
             }
@@ -18,7 +19,7 @@ namespace FlightPlannerAPI.Models
 
         public static Airport[] GetAirportByPhrase(string phrase)
         {
-            lock (_flights)
+            lock (myLock)
             {
                 List<Airport> airportsList = new List<Airport> { };
                 foreach (Flight f in _flights)
@@ -36,7 +37,7 @@ namespace FlightPlannerAPI.Models
 
         public static PageResult GetFlightListByRequest(FlightRequest request)
         {
-            lock (_flights)
+            lock (myLock)
             {
                 List<Flight> flights = new List<Flight> { };
                 foreach (Flight f in _flights)
@@ -54,7 +55,7 @@ namespace FlightPlannerAPI.Models
 
         public static void ClearFlights()
         {
-            lock (_flights)
+            lock (myLock)
             {
                 _flights.Clear();
             }
@@ -62,13 +63,16 @@ namespace FlightPlannerAPI.Models
 
         public static void AddFlight(Flight newFlight)
         {
-            newFlight.Id = _flights.Count;
-            _flights.Add(newFlight);
+            lock (myLock)
+            {
+                newFlight.Id = _flights.Count;
+                _flights.Add(newFlight);
+            }
         }
 
         public static void DeleteFlight(int id)
         {
-            lock (_flights)
+            lock (myLock)
             {
                 _flights.RemoveAll(f => f.Id == id);
                 for (int i = 0; i < _flights.Count; i++)
@@ -80,12 +84,12 @@ namespace FlightPlannerAPI.Models
 
         public static bool IsFlightDuplicate(Flight flight)
         {
-            lock (_flights)
+            lock (myLock)
             {
                 if (!_flights.Any())
                     return false;
                 else 
-                    return _flights.ToList().Any(f => FlightValidate.AreFlightDuplicates(f, flight));
+                    return _flights.Any(f => FlightValidate.AreFlightDuplicates(f, flight));
             }
 
         }
