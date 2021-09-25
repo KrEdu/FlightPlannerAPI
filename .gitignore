@@ -350,8 +350,5 @@ MigrationBackup/
 .ionide/
 
 /appsettings.Development.json
-/appsettings.json
-/FlightPlannerAPI.csproj
-/FlightPlannerAPI.sln
 /Properties/launchSettings.json
 
