@@ -1,4 +1,3 @@
-﻿using FlightPlannerAPI.DbContext;
 using FlightPlannerAPI.Models;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
@@ -10,12 +9,6 @@ namespace FlightPlannerAPI.Controllers
     [ApiController]
     public class AdminController : ControllerBase
     {
-        private readonly FlightPlannerDbContext _context;
-        public AdminController(FlightPlannerDbContext context)
-        {
-            _context = context;
-        }
-
         [HttpGet]
         [Route("flights/{id}")]
         public IActionResult GetFlight(int id)
