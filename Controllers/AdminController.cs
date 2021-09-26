@@ -32,10 +32,9 @@ namespace FlightPlannerAPI.Controllers
                     FlightStorage.AddFlight(flight);
                     return Created("", flight);
                 }
-                else return Conflict();
+                return Conflict();
             }
-            else
-                return BadRequest();
+            return BadRequest();
         }
         [HttpDelete]
         [Route("flights/{id}")]
