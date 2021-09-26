@@ -1,4 +1,4 @@
-﻿using FlightPlannerAPI.DbContext;
+using FlightPlannerAPI.DbContext;
 using FlightPlannerAPI.Models;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
@@ -56,7 +56,7 @@ namespace FlightPlannerAPI.Controllers
             {
                 return NotFound();
             }
-            return Ok(flight);
+            Ok(flight);
         }
     }
 }
