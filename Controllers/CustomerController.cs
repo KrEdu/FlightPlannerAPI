@@ -18,8 +18,7 @@ namespace FlightPlannerAPI.Controllers
             Airport [] airport = FlightStorage.GetAirportByPhrase(search);
             if (airport == null)
                 return NotFound();
-            else
-                return Ok(airport);
+            return Ok(airport);
         }
 
         [HttpPost]
@@ -33,8 +32,7 @@ namespace FlightPlannerAPI.Controllers
                 PageResult result = FlightStorage.GetFlightListByRequest(request);
                 return Ok(result);
             }
-            else
-                return BadRequest();
+            return BadRequest();
         }
 
         [HttpGet]
@@ -46,7 +44,7 @@ namespace FlightPlannerAPI.Controllers
             {
                 return NotFound();
             }
-            return Ok(flight);
+            Ok(flight);
         }
     }
 }
