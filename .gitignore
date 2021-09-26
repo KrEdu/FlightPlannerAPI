@@ -349,7 +349,3 @@ MigrationBackup/
 # Ionide (cross platform F# VS Code tools) working folder
 .ionide/
 /appsettings.Development.json
-/appsettings.json
-/FlightPlannerAPI.csproj
-/FlightPlannerAPI.sln
-/Properties/launchSettings.json
