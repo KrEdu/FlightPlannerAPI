@@ -1,7 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 
 namespace FlightPlannerAPI.Models
 {
@@ -9,23 +6,21 @@ namespace FlightPlannerAPI.Models
     {
         public static bool AreAirportsViable(Airport airport1, Airport airport2)
         {
-            if (airport1 == null || airport2 == null ||
-                String.IsNullOrEmpty(airport1.airport) || String.IsNullOrEmpty(airport2.airport) ||
-               String.IsNullOrEmpty(airport1.airport) || String.IsNullOrEmpty(airport2.airport) ||
-                String.IsNullOrEmpty(airport1.airport) || String.IsNullOrEmpty(airport2.airport))
-            {
-                return false;
-            }
-            else if (airport1.airport.ToLower().Trim() == airport2.airport.ToLower().Trim())
-            {
-                return false;
-            }
-            else return true;
+            return AirportHasValidValues(airport1) && AirportHasValidValues(airport2) && !AreAirportsDuplicate(airport1, airport2);
         }
 
         public static bool AreAirportsDuplicate(Airport airport1, Airport airport2)
         {
             return airport1.airport.ToLower().Trim() == airport2.airport.ToLower().Trim();
         }
+
+        public static bool AirportHasValidValues(Airport airport)
+        {
+            return (airport != null)
+                && !String.IsNullOrEmpty(airport.airport)
+                && !String.IsNullOrEmpty(airport.city)
+                && !String.IsNullOrEmpty(airport.country);
+        }
+
     }
 }

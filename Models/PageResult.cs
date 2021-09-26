@@ -9,8 +9,8 @@ namespace FlightPlannerAPI.Models
     {
         public int Page { get; set; }
         public int TotalItems { get; set; }
-        public Flight[] Items { get; set; }
-        public PageResult(int page, int totalTimes, Flight[] items)
+        public List<Flight> Items { get; set; }
+        public PageResult(int page, int totalTimes, List<Flight> items)
         {
             Page = page;
             TotalItems = totalTimes;
