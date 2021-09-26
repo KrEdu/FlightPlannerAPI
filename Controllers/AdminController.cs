@@ -1,9 +1,10 @@
-﻿using FlightPlannerAPI.Models;
+﻿using FlightPlannerAPI.DbContext;
+using FlightPlannerAPI.Models;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using System;
-using System.Collections.Generic;
+using Microsoft.EntityFrameworkCore;
 using System.Linq;
+using System.Threading;
 using System.Threading.Tasks;
 
 namespace FlightPlannerAPI.Controllers
@@ -13,11 +14,18 @@ namespace FlightPlannerAPI.Controllers
     [ApiController]
     public class AdminController : ControllerBase
     {
+        private readonly FlightPlannerDbContext _context;
+        private static readonly SemaphoreSlim Mutex = new SemaphoreSlim(1);
+
+        public AdminController (FlightPlannerDbContext context)
+        {
+            _context = context;
+        }
         [HttpGet]
         [Route("flights/{id}")]
         public IActionResult GetFlight(int id)
         {
-            var flight = FlightStorage.GetFlightById(id);
+            var flight = _context.Flights.Include(f => f.From).Include(f => f.To).SingleOrDefault(flight => flight.Id == id);
             if (flight == null)
             {
                 return NotFound();
@@ -27,26 +35,52 @@ namespace FlightPlannerAPI.Controllers
 
         [HttpPut]
         [Route("flights")]
-        public IActionResult PutFlight(Flight flight)
+        public async Task <IActionResult> PutFlight(Flight flight)
         {
             if (FlightValidate.IsFlightViable(flight))
             {
-                if (!FlightStorage.IsFlightDuplicate(flight))
+                await Mutex.WaitAsync();
+                try
                 {
-                    FlightStorage.AddFlight(flight);
-                    return Created("", flight);
+                    if (_context.Flights.Include(f => f.From).Include(f => f.To).ToList()   
+                        .FirstOrDefault(f =>FlightValidate.AreFlightDuplicates(f, flight)) == null)
+                    {
+                        _context.Flights.Add(flight);
+                        _context.SaveChanges();
+                        return Created("", flight);
+                    }
+                    return Conflict();
                 }
-                else return Conflict();
+                finally
+                {
+                    Mutex.Release();
+                }
             }
-            else
-                return BadRequest();
+            return BadRequest();
         }
+
         [HttpDelete]
         [Route("flights/{id}")]
-        public IActionResult DeleteFlight(int id)
+        public async Task <IActionResult> DeleteFlight(int id)
         {
-            FlightStorage.DeleteFlight(id);
-            return Ok();
+            await Mutex.WaitAsync();
+            try
+            {
+                var flight = _context.Flights.Include(f => f.To).Include(f => f.From).SingleOrDefault(f => f.Id == id);
+
+                if (flight != null)
+                {
+                    _context.Airports.Remove(flight.To);
+                    _context.Airports.Remove(flight.From);
+                    _context.Flights.Remove(flight);
+                    _context.SaveChanges();
+                }
+                return Ok();
+            }
+            finally
+            {
+                Mutex.Release();
+            }
         }
     }
 }
