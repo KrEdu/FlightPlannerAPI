@@ -13,12 +13,9 @@ namespace FlightPlannerAPI.Models
         
         public bool Contains( string phrase)
         {
-            if (country.ToLower().Contains(phrase.ToLower().Trim()) 
+            return (country.ToLower().Contains(phrase.ToLower().Trim()) 
                 || city.ToLower().Contains(phrase.ToLower().Trim()) 
-                || airport.ToLower().Contains(phrase.ToLower().Trim()))
-                return true;
-            else
-                return false;
+                || airport.ToLower().Contains(phrase.ToLower().Trim()));   
         }
     }
 }
