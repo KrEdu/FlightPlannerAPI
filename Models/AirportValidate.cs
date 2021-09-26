@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 
 namespace FlightPlannerAPI.Models
 {
@@ -6,14 +6,11 @@ namespace FlightPlannerAPI.Models
     {
         public static bool AreAirportsViable(Airport airport1, Airport airport2)
         {
-            if (airport1 == null || airport2 == null ||
-                String.IsNullOrEmpty(airport1.airport) || String.IsNullOrEmpty(airport2.airport) ||
-               String.IsNullOrEmpty(airport1.airport) || String.IsNullOrEmpty(airport2.airport) ||
-                String.IsNullOrEmpty(airport1.airport) || String.IsNullOrEmpty(airport2.airport))
+            if (!AirportHasValidValues(airport1) && !AirportHasValidValues(airport2))
             {
                 return false;
             }
-            else if (airport1.airport.ToLower().Trim() == airport2.airport.ToLower().Trim())
+            else if (AreAirportsDuplicate(airport1, airport2))
             {
                 return false;
             }
@@ -24,5 +21,14 @@ namespace FlightPlannerAPI.Models
         {
             return airport1.airport.ToLower().Trim() == airport2.airport.ToLower().Trim();
         }
+
+        public static bool AirportHasValidValues(Airport airport)
+        {
+            return (airport != null )
+                && !String.IsNullOrEmpty(airport.airport) 
+                &&!String.IsNullOrEmpty(airport.city) 
+                && !String.IsNullOrEmpty(airport.country);
+        }
+
     }
 }
