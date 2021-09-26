@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 
 namespace FlightPlannerAPI.Models
 {
@@ -10,8 +10,7 @@ namespace FlightPlannerAPI.Models
             lock (myLock)
             {
                 return AirportValidate.AreAirportsViable(flight.From, flight.To)
-                    && !String.IsNullOrEmpty(flight.Carrier) && !String.IsNullOrEmpty(flight.DepartureTime)
-                    && !String.IsNullOrEmpty(flight.ArrivalTime)
+                    && FlightHasValidValues(flight)
                     && DateTime.Parse(flight.DepartureTime) < DateTime.Parse(flight.ArrivalTime);
             }
         }
@@ -27,7 +26,16 @@ namespace FlightPlannerAPI.Models
                     && AirportValidate.AreAirportsDuplicate(flight1.To, flight2.To)
                     && AirportValidate.AreAirportsDuplicate(flight1.From, flight2.From);
             }
-           
+
+        }
+        
+        public static bool FlightHasValidValues(Flight flight)
+        {
+            lock (myLock)
+            {
+                return !String.IsNullOrEmpty(flight.Carrier) && !String.IsNullOrEmpty(flight.DepartureTime)
+                    && !String.IsNullOrEmpty(flight.ArrivalTime);
+            }
         }
     }
 }
