@@ -56,7 +56,7 @@ namespace FlightPlannerAPI.Controllers
             {
                 return NotFound();
             }
-            Ok(flight);
+            return Ok(flight);
         }
     }
 }
