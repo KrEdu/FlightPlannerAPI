@@ -1,3 +1,5 @@
+using System.Collections.Generic;
+
 namespace FlightPlannerAPI.Models
 {
     public class PageResult
