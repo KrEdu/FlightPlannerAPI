@@ -350,5 +350,4 @@ MigrationBackup/
 .ionide/
 
 /appsettings.Development.json
-/Properties/launchSettings.json
 

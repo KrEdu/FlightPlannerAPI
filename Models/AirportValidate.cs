@@ -6,15 +6,7 @@ namespace FlightPlannerAPI.Models
     {
         public static bool AreAirportsViable(Airport airport1, Airport airport2)
         {
-            if (!AirportHasValidValues(airport1) && !AirportHasValidValues(airport2))
-            {
-                return false;
-            }
-            else if (AreAirportsDuplicate(airport1, airport2))
-            {
-                return false;
-            }
-            else return true;
+            return AirportHasValidValues(airport1) && AirportHasValidValues(airport2) && !AreAirportsDuplicate(airport1, airport2);
         }
 
         public static bool AreAirportsDuplicate(Airport airport1, Airport airport2)
@@ -24,9 +16,9 @@ namespace FlightPlannerAPI.Models
 
         public static bool AirportHasValidValues(Airport airport)
         {
-            return (airport != null )
-                && !String.IsNullOrEmpty(airport.airport) 
-                &&!String.IsNullOrEmpty(airport.city) 
+            return (airport != null)
+                && !String.IsNullOrEmpty(airport.airport)
+                && !String.IsNullOrEmpty(airport.city)
                 && !String.IsNullOrEmpty(airport.country);
         }
 

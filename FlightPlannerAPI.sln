@@ -1,9 +1,8 @@
-﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 16
 VisualStudioVersion = 16.0.31624.102
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "FlightPlannerAPI", "FlightPlannerAPI.csproj", "{6D0EAE12-6563-4FC6-9DDF-DFFA9D3D6E2D}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "FlightPlannerAPI", "FlightPlannerAPI.csproj", "{45843E96-BC7D-4E3E-8DB3-96DE6FFA6C25}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -11,15 +10,16 @@ Global
 		Release|Any CPU = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{6D0EAE12-6563-4FC6-9DDF-DFFA9D3D6E2D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{6D0EAE12-6563-4FC6-9DDF-DFFA9D3D6E2D}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{6D0EAE12-6563-4FC6-9DDF-DFFA9D3D6E2D}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{6D0EAE12-6563-4FC6-9DDF-DFFA9D3D6E2D}.Release|Any CPU.Build.0 = Release|Any CPU
+		{45843E96-BC7D-4E3E-8DB3-96DE6FFA6C25}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{45843E96-BC7D-4E3E-8DB3-96DE6FFA6C25}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{45843E96-BC7D-4E3E-8DB3-96DE6FFA6C25}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{45843E96-BC7D-4E3E-8DB3-96DE6FFA6C25}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
-		SolutionGuid = {7F4C1D9F-6611-429C-BDBC-9F310BD6CF1A}
+		SolutionGuid = {AF43675B-B587-455C-8630-FE95BDF64DB5}
 	EndGlobalSection
 EndGlobal
+
